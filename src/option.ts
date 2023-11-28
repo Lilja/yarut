@@ -51,8 +51,8 @@ export const OptionUtil = {
   None,
 
   all<T>(options: Option<T>[]): Option<T[]> {
-    let somes: T[] = [];
-    let nones: None<T>[] = [];
+    const somes: T[] = [];
+    const nones: None<T>[] = [];
 
     for (const item of options) {
       if (item.isSome()) {
@@ -69,7 +69,7 @@ export const OptionUtil = {
   },
 
   any<T>(options: Option<T>[]): Some<T[]> {
-    let somes: T[] = [];
+    const somes: T[] = [];
 
     for (const item of options) {
       if (item.isSome()) {

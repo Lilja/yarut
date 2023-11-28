@@ -51,7 +51,7 @@ export const ResultUtil = {
   all<Success, Failure>(
     results: Result<Success, Failure>[],
   ): Result<Success[], Failure> {
-    let oks: Success[] = [];
+    const oks: Success[] = [];
 
     for (const item of results) {
       if (item.isOk()) {
@@ -67,7 +67,7 @@ export const ResultUtil = {
   any<Success, Failure>(
     results: Result<Success, Failure>[],
   ): Ok<Success[], Failure> {
-    let oks: Success[] = [];
+    const oks: Success[] = [];
 
     for (const item of results) {
       if (item.isOk()) {

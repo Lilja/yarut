@@ -7,7 +7,7 @@ test("some case", () => {
   expect(s.tag).toBe("Some");
   expect(s.isSome()).toBe(true);
   if (s.isSome()) {
-    let val: string = s.value;
+    const val: string = s.value;
     expect(val).toBe("Hi");
   }
   expect(s.isNone()).toBe(false);
@@ -22,22 +22,14 @@ test("none case", () => {
 });
 
 test("all", () => {
-  const arr: Option<string>[] = [
-    None(),
-    Some("hi"),
-    Some("haha"),
-  ];
+  const arr: Option<string>[] = [None(), Some("hi"), Some("haha")];
 
   const out = OptionUtil.all(arr);
   expect(out.isNone()).toBe(true);
 });
 
 test("any", () => {
-  const arr: Option<string>[] = [
-    None(),
-    Some("hi"),
-    Some("haha"),
-  ];
+  const arr: Option<string>[] = [None(), Some("hi"), Some("haha")];
 
   const out = OptionUtil.any(arr);
   expect(out.value.length).toBe(2);
