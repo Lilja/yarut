@@ -1,0 +1,20 @@
+{
+  "name": "lib",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "test": "vitest tests",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@swan-io/boxed": "^1.2.0",
+    "@types/node": "^20.10.0",
+    "ts-pattern": "^5.0.5",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.2",
+    "vitest": "^0.34.6"
+  }
+}
