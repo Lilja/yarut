@@ -1,12 +1,28 @@
 {
-  "name": "yarut",
+  "name": "lib",
+  "private": true,
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "test": "vitest tests",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "devDependencies": {
+    "@swan-io/boxed": "^1.2.0",
+    "@types/node": "^20.10.0",
+    "ts-pattern": "^5.0.5",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.2",
+    "vite-plugin-dts": "^3.6.3",
+    "vitest": "^0.34.6"
+  }
 }
