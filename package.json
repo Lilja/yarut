@@ -10,12 +10,13 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite",
-    "test": "vitest tests",
+    "test": "CI=true vitest tests",
     "lint": "npx eslint src tests",
     "prettier": "npx prettier --check src tests",
     "build": "tsc && vite build",
-    "checks": "pnpm run lint && pnpm run prettier && CI=true pnpm run test && pnpm run build",
-    "preview": "vite preview"
+    "checks": "pnpm run lint && pnpm run prettier && pnpm run test && pnpm run build",
+    "preview": "vite preview",
+    "generate-docs": "npx typedoc --plugin typedoc-plugin-markdown --out docs src/index.ts"
   },
   "exports": {
     ".": {
@@ -35,6 +36,8 @@
     "eslint": "^8.54.0",
     "prettier": "^3.1.0",
     "ts-pattern": "^5.0.5",
+    "typedoc": "^0.25.4",
+    "typedoc-plugin-markdown": "^3.17.1",
     "typescript": "^5.3.2",
     "vite": "^5.0.2",
     "vite-plugin-dts": "^3.6.3",

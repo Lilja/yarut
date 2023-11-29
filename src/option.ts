@@ -45,11 +45,59 @@ export const None = <T>() => {
   } satisfies None<T>;
 };
 
-// Helper/utility for other use cases where you want to operate on an array of Options.
-export const OptionUtil = {
+/**
+  * The Option class is a wrapper around the Some and None classes.
+  *
+  * It's a helper/utility for other use cases where you want to operate on an array of Options.
+  *
+  * @example A database operation that returns an Option
+  * ```typescript
+  * function getUser(id: string): Promise<Option<User>> {
+  *   const user = await db.get(id);
+  *   if (user) {
+  *     return Option.Some(user);
+  *   }
+  *   return Option.None();
+  * }
+  *
+  * */
+export const Option = {
+  /**
+    * Constructs an Option of "Some", a successful value.
+    *
+    * @params value: The value to be wrapped in an Option
+    * @returns A Some<T> object
+    *
+    * */
   Some,
+
+  /**
+    * Constructs an Option of "None", a failed/null value.
+    *
+    * @params value: The value to be wrapped in an Option
+    * @returns A None<T> object
+    *
+    * */
   None,
 
+  /**
+    * Returns an option of all array values if all of them are Some.
+    * If any of them is None, it returns None.
+    *
+    * @params options: An array of options
+    * @returns An option of an array of all the values if all of them are Some.
+    *
+    * @example One none in the array of options
+    * ```typescript
+    * const opts: Option<string> = [Some("Foo"), Some("Bar"), None()]
+    * Option.all(opts) // None()
+    * ```
+    * @example No none in the array of options
+    * ```typescript
+    * const opts: Option<string> = [Some("Foo"), Some("Bar")]
+    * Option.all(opts) // Some(["Foo", "Bar"])
+    * ```
+    * */
   all<T>(options: Option<T>[]): Option<T[]> {
     const somes: T[] = [];
     const nones: None<T>[] = [];
@@ -63,11 +111,26 @@ export const OptionUtil = {
     }
 
     if (nones.length > 0) {
-      return OptionUtil.None();
+      return Option.None();
     }
-    return OptionUtil.Some(somes);
+    return Option.Some(somes);
   },
 
+  /**
+    * Returns an Option of an array of all the Some values.
+    * It basically filters out all the None values.
+    * Therefore, it might return an empty array.
+    *
+    * @params options: An array of options
+    * @returns An option of an array of all the values if any of them are Some.
+    *
+    * @example Option array into a single Option as string array
+    * ```typescript
+    * const opts: Option<string> = [None(), Some("Foo"), Some("Bar")]
+    * Option.any(opts) // Some(["Foo", "Bar"])
+    * ```
+    *
+    * */
   any<T>(options: Option<T>[]): Some<T[]> {
     const somes: T[] = [];
 
@@ -77,6 +140,6 @@ export const OptionUtil = {
       }
     }
 
-    return OptionUtil.Some(somes);
+    return Option.Some(somes);
   },
 };

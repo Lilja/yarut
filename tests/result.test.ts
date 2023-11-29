@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { Ok, Err, ResultUtil, Result } from "../src/result";
+import { Ok, Err, Result } from "../src/result";
 
 test("ok", () => {
   const s: Result<string, Error> = Ok("ok");
@@ -17,7 +17,7 @@ test("all", () => {
     Err(new Error("Grrr...")),
     Ok("Yay"),
   ];
-  expect(ResultUtil.all(s).isError()).toBe(true);
+  expect(Result.all(s).isError()).toBe(true);
 });
 
 test("any", () => {
@@ -26,6 +26,6 @@ test("any", () => {
     Err(new Error("Grrr...")),
     Ok("Yay"),
   ];
-  expect(ResultUtil.any(s).isOk()).toBe(true);
-  expect(ResultUtil.any(s).value).toStrictEqual(["Yay"]);
+  expect(Result.any(s).isOk()).toBe(true);
+  expect(Result.any(s).value).toStrictEqual(["Yay"]);
 });

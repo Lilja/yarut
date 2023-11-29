@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { Option, Some, None, OptionUtil } from "../src/option";
+import { Option, Some, None } from "../src/option";
 
 test("some case", () => {
   const s = Some("Hi");
@@ -24,13 +24,13 @@ test("none case", () => {
 test("all", () => {
   const arr: Option<string>[] = [None(), Some("hi"), Some("haha")];
 
-  const out = OptionUtil.all(arr);
+  const out = Option.all(arr);
   expect(out.isNone()).toBe(true);
 });
 
 test("any", () => {
   const arr: Option<string>[] = [None(), Some("hi"), Some("haha")];
 
-  const out = OptionUtil.any(arr);
+  const out = Option.any(arr);
   expect(out.value.length).toBe(2);
 });
