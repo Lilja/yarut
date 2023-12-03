@@ -23,5 +23,13 @@ if (result.isOk()) {
 * `Result` - Encode errors as type information and explicitly handle them
 * `Option` - Don't use null/undefined to express values that doesn't exist. Use `None` and `Some` to indicate it.
 
+### Superjson support
+```
+import {optionSuperRegisterRecipe, resultSuperRegisterRecipe } from "yarut";
+import superjson from "superjson";
+
+superjson.registerCustom(resultSuperRegisterRecipe(superjson), "yarut/Result");
+superjson.registerCustom(optionSuperRegisterRecipe(superjson), "yarut/Option");
+```
 ## Acknowledgements
 Inspired by the work of [@swan-io/boxed](https://github.com/swan-io/boxed)

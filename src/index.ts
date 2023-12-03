@@ -1,2 +1,2 @@
-export { Option, Some, None } from "./option";
-export { Result, Ok, Err } from "./result";
+export { Option, Some, None, optionSuperRegisterRecipe } from "./option";
+export { Result, Ok, Err, resultSuperRegisterRecipe } from "./result";

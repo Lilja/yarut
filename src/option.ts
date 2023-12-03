@@ -1,3 +1,5 @@
+import type superjson from "superjson";
+
 interface IOption<T> {
   isSome(this: IOption<T>): this is Some<T>;
   isNone(this: IOption<T>): this is None<T>;
@@ -142,4 +144,38 @@ export const Option = {
 
     return Option.Some(somes);
   },
+
+  isOption<T>(value: unknown): value is Option<T> {
+    return (
+      value instanceof Object &&
+      "tag" in value &&
+      typeof value.tag === "string" &&
+      ["Some", "None"].includes(value.tag)
+    );
+  },
+};
+
+type SuperJsonOutput = { tag: "Some" | "None"; payload: string };
+
+export const optionSuperRegisterRecipe = (
+  _superjson: typeof superjson,
+): Parameters<
+  typeof superjson.registerCustom<Option<unknown>, SuperJsonOutput>
+>[0] => {
+  return {
+    isApplicable: (value): value is Option<unknown> => Option.isOption(value),
+    serialize: (value: Option<unknown>) => {
+      if (value.isSome()) {
+        return { tag: "Some", payload: _superjson.stringify(value.value) };
+      }
+      return { tag: "None", payload: "" };
+    },
+    deserialize: (value: SuperJsonOutput) => {
+      if (value.tag === "Some") {
+        return Some(_superjson.parse(value.payload));
+      } else {
+        return None();
+      }
+    },
+  };
 };

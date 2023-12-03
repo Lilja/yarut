@@ -1,3 +1,5 @@
+import type superjson from "superjson";
+
 interface IResult<Success, Failure> {
   isError(this: IResult<Success, Failure>): this is Err<Success, Failure>;
   isOk(this: IResult<Success, Failure>): this is Ok<Success, Failure>;
@@ -134,4 +136,41 @@ export const Result = {
 
     return Ok(oks);
   },
+
+  isResult<Success, Failure>(
+    value: unknown,
+  ): value is Result<Success, Failure> {
+    return (
+      value instanceof Object &&
+      "tag" in value &&
+      typeof value.tag === "string" &&
+      ["Ok", "Err"].includes(value.tag)
+    );
+  },
+};
+
+type SuperJsonOutput = { tag: "Ok" | "Err"; payload: string };
+
+export const resultSuperRegisterRecipe = (
+  _superjson: typeof superjson,
+): Parameters<
+  typeof superjson.registerCustom<Result<unknown, unknown>, SuperJsonOutput>
+>[0] => {
+  return {
+    isApplicable: (value): value is Result<unknown, unknown> =>
+      Result.isResult(value),
+    serialize: (value: Result<unknown, unknown>) => {
+      if (value.isOk()) {
+        return { tag: "Ok", payload: _superjson.stringify(value.value) };
+      }
+      return { tag: "Err", payload: _superjson.stringify(value.error) };
+    },
+    deserialize: (value: SuperJsonOutput) => {
+      if (value.tag === "Ok") {
+        return Ok(_superjson.parse(value.payload));
+      } else {
+        return Err(_superjson.parse(value.payload));
+      }
+    },
+  };
 };
