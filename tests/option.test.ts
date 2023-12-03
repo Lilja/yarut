@@ -35,7 +35,6 @@ test("any", () => {
   expect(out.value.length).toBe(2);
 });
 
-
 test("type guard", () => {
   const val = Option.Some<string>("hi");
 
@@ -45,4 +44,4 @@ test("type guard", () => {
 
   const option: Some<string> = val;
   expect(option.value).toBe("hi");
-})
+});

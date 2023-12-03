@@ -31,18 +31,17 @@ test("any", () => {
 });
 
 test("type guard", () => {
-
   const apiCall = (id: number): Result<string, Error> => {
     if (id === 0) {
       return Ok("ok");
     }
     return Err(new Error("Grrr..."));
-  }
+  };
 
   const result = apiCall(0);
   if (result.isError()) {
     expect(1).toBe(2);
-    return
+    return;
   }
 
   const value: Ok<string, Error> = result;
