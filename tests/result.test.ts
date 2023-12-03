@@ -29,3 +29,22 @@ test("any", () => {
   expect(Result.any(s).isOk()).toBe(true);
   expect(Result.any(s).value).toStrictEqual(["Yay"]);
 });
+
+test("type guard", () => {
+
+  const apiCall = (id: number): Result<string, Error> => {
+    if (id === 0) {
+      return Ok("ok");
+    }
+    return Err(new Error("Grrr..."));
+  }
+
+  const result = apiCall(0);
+  if (result.isError()) {
+    expect(1).toBe(2);
+    return
+  }
+
+  const value: Ok<string, Error> = result;
+  expect(value.value).toBe("ok");
+});

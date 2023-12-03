@@ -3,12 +3,12 @@ interface IOption<T> {
   isNone(this: IOption<T>): this is None<T>;
 }
 
-type Some<T> = IOption<T> & {
+export type Some<T> = IOption<T> & {
   tag: "Some";
   value: T;
 };
 
-type None<N> = IOption<N> & {
+export type None<N> = IOption<N> & {
   tag: "None";
 };
 

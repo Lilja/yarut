@@ -3,12 +3,12 @@ interface IResult<Success, Failure> {
   isOk(this: IResult<Success, Failure>): this is Ok<Success, Failure>;
 }
 
-type Ok<Success, Failure> = IResult<Success, Failure> & {
+export type Ok<Success, Failure> = IResult<Success, Failure> & {
   tag: "Ok";
   value: Success;
 };
 
-type Err<Success, Failure> = IResult<Success, Failure> & {
+export type Err<Success, Failure> = IResult<Success, Failure> & {
   tag: "Err";
   error: Failure;
 };

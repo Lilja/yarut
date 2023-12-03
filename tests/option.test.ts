@@ -34,3 +34,15 @@ test("any", () => {
   const out = Option.any(arr);
   expect(out.value.length).toBe(2);
 });
+
+
+test("type guard", () => {
+  const val = Option.Some<string>("hi");
+
+  if (val.isNone()) {
+    expect(1).toBe(2);
+  }
+
+  const option: Some<string> = val;
+  expect(option.value).toBe("hi");
+})
